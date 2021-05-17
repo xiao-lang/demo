@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://106.12.9.87:3306/test
+#    username: root
+#    password: 824645
+#    type: com.alibaba.druid.pool.DruidDataSource
+#  devtools:
+#    restart:
+#      additional-paths: src/main/java
+#      exclude: jsp/**,public/** #改变默认数据源 c3p0 为 Druid
+mybatis:
+  mapper-locations: classpath:/mappers/*Mapper.xml

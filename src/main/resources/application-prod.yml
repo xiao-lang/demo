@@ -1,0 +1,60 @@
+server:
+  servlet:
+    context-path: /test2
+  port: 8083
+logging:
+  level:
+    com:
+      jwq:
+        dao: debug
+logAppender: org.apache.log4j.DailyRollingFileAppender
+logpath: application.log
+
+
+# 初始化大小，最小，最大
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.12.9.87:3306/uic
+    username: root
+    password: 824645
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+        initial-size: 5
+        min-idle: 5
+        max-active: 20
+        # 配置获取连接等待超时的时间
+        max-wait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        # 校验SQL，Oracle配置spring.datasource.validationQuery=SELECT 1 FROM DUAL，如果不配validationQuery项，则下面三项配置无用
+        validation-query: SELECT 'x'
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        filters: stat,wall,log4j
+        connection-properties:
+          druid.stat.mergeSql: true
+        filter:
+          stat:
+            slow-sql-millis: 5000
+        # 合并多个DruidDataSource的监控数据
+        use-global-data-source-stat: true
+  devtools:
+     restart:
+        additional-paths: src/main/java
+        exclude: jsp/**,public/** #改变默认数据源 c3p0 为 Druid
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /jsp/
+
+
+#    static-path-pattern: /**
+
+
